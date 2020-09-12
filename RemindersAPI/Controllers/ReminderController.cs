@@ -9,11 +9,11 @@ namespace RemindersAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RemindersController : ControllerBase
+    public class ReminderController : ControllerBase
     {
-        private readonly IRemindersService _remindersService;
+        private readonly IReminderService _remindersService;
 
-        public RemindersController(IRemindersService remindersService)
+        public ReminderController(IReminderService remindersService)
         {
             _remindersService = remindersService;
         }

@@ -1,19 +1,17 @@
 ﻿using RemindersAPI.DTOs;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RemindersAPI.Services
 {
-    public interface IRemindersService
+    public interface IReminderService
     {
         Task<IList<ReminderDTO>> GetReminders();
         Task<ReminderDTO> CreateReminder(ReminderDTO reminder);
         Task<string> DeleteReminder(string reminderId);
     }
 
-    public class RemindersService : IRemindersService
+    public class ReminderService : IReminderService
     {
         public Task<IList<ReminderDTO>> GetReminders()
         {
