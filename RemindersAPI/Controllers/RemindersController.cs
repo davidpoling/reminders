@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RemindersAPI.DTOs;
 using RemindersAPI.Services;
@@ -9,9 +11,9 @@ namespace RemindersAPI.Controllers
     [ApiController]
     public class RemindersController : ControllerBase
     {
-        private readonly RemindersService _remindersService;
+        private readonly IRemindersService _remindersService;
 
-        public RemindersController(RemindersService remindersService)
+        public RemindersController(IRemindersService remindersService)
         {
             _remindersService = remindersService;
         }
@@ -21,9 +23,9 @@ namespace RemindersAPI.Controllers
         /// </summary>
         /// <returns>A status along with the list of Reminders.</returns>
         [HttpGet]
-        public ActionResult<IList<ReminderDTO>> GetReminders()
+        public async Task<ActionResult<IList<ReminderDTO>>> GetReminders()
         {
-            return null;
+            return Ok(await _remindersService.GetReminders());
         }
 
         /// <summary>
@@ -32,9 +34,9 @@ namespace RemindersAPI.Controllers
         /// <param name="reminder"></param>
         /// <returns>A status along with the newly added Reminder.</returns>
         [HttpPost]
-        public ActionResult<ReminderDTO> CreateReminder([FromBody] ReminderDTO reminder)
+        public async Task<ActionResult<ReminderDTO>> CreateReminder([FromBody] ReminderDTO reminder)
         {
-            return null;
+            return Ok(await _remindersService.CreateReminder(reminder));
         }
 
         /// <summary>
@@ -43,9 +45,9 @@ namespace RemindersAPI.Controllers
         /// <param name="id"></param>
         /// <returns>A status along with the deleted Reminder's ID.</returns>
         [HttpDelete("{id}")]
-        public ActionResult<string> DeleteReminder(string id)
+        public async Task<ActionResult<string>> DeleteReminder(string id)
         {
-            return null;
+            return Ok(await _remindersService.DeleteReminder(id));
         }
     }
 }

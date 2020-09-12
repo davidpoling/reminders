@@ -6,21 +6,28 @@ using System.Threading.Tasks;
 
 namespace RemindersAPI.Services
 {
-    public class RemindersService
+    public interface IRemindersService
     {
-        public IList<ReminderDTO> GetReminders()
+        Task<IList<ReminderDTO>> GetReminders();
+        Task<ReminderDTO> CreateReminder(ReminderDTO reminder);
+        Task<string> DeleteReminder(string reminderId);
+    }
+
+    public class RemindersService : IRemindersService
+    {
+        public Task<IList<ReminderDTO>> GetReminders()
         {
-            return new List<ReminderDTO>();
+            return null;
         }
 
-        public ReminderDTO AddReminder(ReminderDTO reminder)
+        public Task<ReminderDTO> CreateReminder(ReminderDTO reminder)
         {
-            return reminder;
+            return null;
         }
 
-        public string DeleteReminder(string reminderId)
+        public Task<string> DeleteReminder(string reminderId)
         {
-            return reminderId;
+            return null;
         }
     }
 }
