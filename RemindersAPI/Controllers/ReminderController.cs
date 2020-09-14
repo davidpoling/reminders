@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RemindersAPI.Commands;
 using RemindersAPI.DTOs;
 using RemindersAPI.Services;
 
@@ -34,7 +35,7 @@ namespace RemindersAPI.Controllers
         /// <param name="reminder"></param>
         /// <returns>A status along with the newly added Reminder.</returns>
         [HttpPost]
-        public async Task<ActionResult<ReminderDTO>> CreateReminder([FromBody] ReminderDTO reminder)
+        public async Task<ActionResult<ReminderDTO>> CreateReminder([FromBody] CreateReminderCommand reminder)
         {
             return Ok(await _remindersService.CreateReminder(reminder));
         }

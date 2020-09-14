@@ -1,12 +1,16 @@
 ﻿using System;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Steeltoe.CloudFoundry.Connector.MySql.EFCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RemindersAPI.Services;
+using RemindersDomain;
+using Z.EntityFramework.Extensions;
 
 namespace RemindersAPI
 {
@@ -14,18 +18,29 @@ namespace RemindersAPI
     {
         private readonly string _serviceName = "Reminders";
 
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddDbContext<ReminderContext>(options =>
+            {
+                var optionsBuilder = options.UseMySql(Configuration);
+                EntityFrameworkManager.ContextFactory = context =>
+                    new ReminderContext(optionsBuilder.Options);
+            });
+
+            services.AddCors();
+            services.AddOptions();
+            services.AddControllersWithViews();
+            services.AddScoped<IReminderRepository, ReminderRepository>();
             services.AddScoped<IReminderService, ReminderService>();
+           
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -46,11 +61,16 @@ namespace RemindersAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ReminderContext reminderContext)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+
+            if (reminderContext.Database.ProviderName != "Microsoft.EntityFrameworkCore.InMemory")
+            {
+                reminderContext.Database.Migrate();
             }
 
             app.UseSwagger();

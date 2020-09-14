@@ -1,11 +1,9 @@
 ﻿using System;
 
-namespace RemindersDomain.models
+namespace RemindersAPI.Commands
 {
-    public class Reminder
+    public class CreateReminderCommand
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
-
         public string Text { get; set; }
 
         public DateTime DateTime { get; set; }
