@@ -1,8 +1,8 @@
-﻿using RemindersAPI.Commands;
+﻿using AutoMapper;
+using RemindersAPI.Commands;
 using RemindersAPI.DTOs;
 using RemindersDomain;
 using RemindersDomain.models;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,10 +19,12 @@ namespace RemindersAPI.Services
     public class ReminderService : IReminderService
     {
         private readonly IReminderRepository _reminderRepository;
+        private readonly IMapper _mapper;
 
-        public ReminderService(IReminderRepository reminderRepository)
+        public ReminderService(IReminderRepository reminderRepository, IMapper mapper)
         {
             _reminderRepository = reminderRepository;
+            _mapper = mapper;
         }
 
         public async Task<IList<ReminderDTO>> GetReminders()
@@ -31,14 +33,7 @@ namespace RemindersAPI.Services
             var reminders = await _reminderRepository.GetReminders();
             foreach (var reminder in reminders)
             {
-                reminderDTOs.Add(new ReminderDTO
-                {
-                    Id = reminder.Id.ToString(),
-                    Text = reminder.Text,
-                    DateTime = reminder.DateTime,
-                    DateTimeString = reminder.DateTimeString,
-                    Complete = reminder.Complete
-                });
+                reminderDTOs.Add(_mapper.Map<Reminder, ReminderDTO>(reminder));
             }
 
             return reminderDTOs;
@@ -46,22 +41,11 @@ namespace RemindersAPI.Services
 
         public async Task<ReminderDTO> CreateReminder(CreateReminderCommand reminder)
         {
-            var reminderToCreate = new Reminder
-            {
-                Text = reminder.Text,
-                DateTime = reminder.DateTime,
-                DateTimeString = reminder.DateTimeString
-            };
+            var reminderToCreate = _mapper.Map<CreateReminderCommand, Reminder>(reminder);
             var createdReminder = await _reminderRepository.CreateReminder(reminderToCreate);
             await _reminderRepository.Save();
 
-            return new ReminderDTO
-            {
-                Id = createdReminder.Id.ToString(),
-                Text = createdReminder.Text,
-                DateTime = createdReminder.DateTime,
-                DateTimeString = createdReminder.DateTimeString
-            };
+            return _mapper.Map<Reminder, ReminderDTO>(createdReminder);
         }
 
         public async Task<ReminderDTO> UpdateReminder(ReminderDTO reminder)
@@ -80,14 +64,7 @@ namespace RemindersAPI.Services
             var deletedReminder = await _reminderRepository.DeleteReminder(id);
             await _reminderRepository.Save();
 
-            return new ReminderDTO
-            {
-                Id = deletedReminder.Id.ToString(),
-                Text = deletedReminder.Text,
-                DateTime = deletedReminder.DateTime,
-                DateTimeString = deletedReminder.DateTimeString,
-                Complete = deletedReminder.Complete
-            };
+            return _mapper.Map<Reminder, ReminderDTO>(deletedReminder);
         }
     }
 }

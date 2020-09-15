@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using RemindersAPI.Services;
 using RemindersDomain;
 using Z.EntityFramework.Extensions;
+using AutoMapper;
 
 namespace RemindersAPI
 {
@@ -38,6 +39,7 @@ namespace RemindersAPI
             services.AddCors();
             services.AddOptions();
             services.AddControllersWithViews();
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IReminderRepository, ReminderRepository>();
             services.AddScoped<IReminderService, ReminderService>();
            
