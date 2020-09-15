@@ -12,6 +12,7 @@ namespace RemindersAPI.Services
     {
         Task<IList<ReminderDTO>> GetReminders();
         Task<ReminderDTO> CreateReminder(CreateReminderCommand reminder);
+        Task<ReminderDTO> UpdateReminder(ReminderDTO reminder);
         Task<ReminderDTO> DeleteReminder(string id);
     }
 
@@ -35,7 +36,8 @@ namespace RemindersAPI.Services
                     Id = reminder.Id.ToString(),
                     Text = reminder.Text,
                     DateTime = reminder.DateTime,
-                    DateTimeString = reminder.DateTimeString
+                    DateTimeString = reminder.DateTimeString,
+                    Complete = reminder.Complete
                 });
             }
 
@@ -62,6 +64,17 @@ namespace RemindersAPI.Services
             };
         }
 
+        public async Task<ReminderDTO> UpdateReminder(ReminderDTO reminder)
+        {
+            var reminderToUpdate = await _reminderRepository.GetReminderById(reminder.Id);
+            reminderToUpdate.Text = reminder.Text;
+            reminderToUpdate.DateTime = reminder.DateTime;
+            reminderToUpdate.DateTimeString = reminder.DateTimeString;
+            reminderToUpdate.Complete = reminder.Complete;
+            await _reminderRepository.Save();
+            return reminder;
+        }
+
         public async Task<ReminderDTO> DeleteReminder(string id)
         {
             var deletedReminder = await _reminderRepository.DeleteReminder(id);
@@ -72,7 +85,8 @@ namespace RemindersAPI.Services
                 Id = deletedReminder.Id.ToString(),
                 Text = deletedReminder.Text,
                 DateTime = deletedReminder.DateTime,
-                DateTimeString = deletedReminder.DateTimeString
+                DateTimeString = deletedReminder.DateTimeString,
+                Complete = deletedReminder.Complete
             };
         }
     }

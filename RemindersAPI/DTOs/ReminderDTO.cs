@@ -11,5 +11,7 @@ namespace RemindersAPI.DTOs
         public DateTime DateTime { get; set; }
 
         public string DateTimeString { get; set; }
+
+        public bool Complete { get; set; }
     }
 }

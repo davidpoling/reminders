@@ -20,7 +20,7 @@ namespace RemindersAPI.Controllers
         }
 
         /// <summary>
-        /// Get a list of all reminders
+        /// Get a list of all reminders.
         /// </summary>
         /// <returns>A status along with the list of Reminders.</returns>
         [HttpGet]
@@ -30,7 +30,7 @@ namespace RemindersAPI.Controllers
         }
 
         /// <summary>
-        /// Create a new Reminder
+        /// Create a new Reminder.
         /// </summary>
         /// <param name="reminder"></param>
         /// <returns>A status along with the newly added Reminder.</returns>
@@ -38,6 +38,17 @@ namespace RemindersAPI.Controllers
         public async Task<ActionResult<ReminderDTO>> CreateReminder([FromBody] CreateReminderCommand reminder)
         {
             return Ok(await _remindersService.CreateReminder(reminder));
+        }
+
+        /// <summary>
+        /// Update a Reminder.
+        /// </summary>
+        /// <param name="reminder"></param>
+        /// <returns>A status along with the updated Reminder.</returns>
+        [HttpPut]
+        public async Task<ActionResult<ReminderDTO>> UpdateReminder([FromBody] ReminderDTO reminder)
+        {
+            return Ok(await _remindersService.UpdateReminder(reminder));
         }
 
         /// <summary>
