@@ -82,7 +82,11 @@ namespace RemindersAPI
                 c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", _serviceName);
             });
 
-            app.UseHttpsRedirection();
+            if (Configuration["DevelopmentEnvironment"] != "local")
+            {
+                app.UseHttpsRedirection();
+            }
+
             app.UseRouting();
             app.UseCors(c => 
                 c.AllowAnyOrigin()

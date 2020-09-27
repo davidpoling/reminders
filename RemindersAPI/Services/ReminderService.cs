@@ -50,12 +50,8 @@ namespace RemindersAPI.Services
 
         public async Task<ReminderDTO> UpdateReminder(ReminderDTO reminder)
         {
-            var reminderToUpdate = await _reminderRepository.GetReminderById(reminder.Id);
-            reminderToUpdate.Text = reminder.Text;
-            reminderToUpdate.DateTime = reminder.DateTime;
-            reminderToUpdate.DateTimeString = reminder.DateTimeString;
-            reminderToUpdate.Complete = reminder.Complete;
-            await _reminderRepository.Save();
+            var reminderToUpdate = _mapper.Map<ReminderDTO, Reminder>(reminder);
+            await _reminderRepository.UpdateReminder(reminderToUpdate);
             return reminder;
         }
 

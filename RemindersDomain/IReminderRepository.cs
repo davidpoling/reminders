@@ -10,6 +10,7 @@ namespace RemindersDomain
         Task<IList<Reminder>> GetReminders();
         Task<Reminder> GetReminderById(string id);
         Task<Reminder> CreateReminder(Reminder reminder);
+        Task UpdateReminder(Reminder reminder);
         Task<Reminder> DeleteReminder(string id);
         Task Save();
     }
@@ -37,6 +38,11 @@ namespace RemindersDomain
         {
             var entry = await _reminderContext.Reminders.AddAsync(reminder);
             return entry.Entity;
+        }
+
+        public async Task UpdateReminder(Reminder reminder)
+        {
+            await _reminderContext.SingleMergeAsync(reminder);
         }
 
         public async Task<Reminder> DeleteReminder(string id)
