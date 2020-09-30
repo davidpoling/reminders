@@ -42,6 +42,8 @@ namespace RemindersAPI
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IReminderRepository, ReminderRepository>();
             services.AddScoped<IReminderService, ReminderService>();
+            services.AddScoped<IShoppingListRepository, ShoppingListRepository>();
+            services.AddScoped<IShoppingListService, ShoppingListService>();
            
             services.AddSwaggerGen(c =>
             {

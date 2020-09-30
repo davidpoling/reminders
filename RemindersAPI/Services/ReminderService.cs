@@ -2,7 +2,7 @@
 using RemindersAPI.Commands;
 using RemindersAPI.DTOs;
 using RemindersDomain;
-using RemindersDomain.models;
+using RemindersDomain.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

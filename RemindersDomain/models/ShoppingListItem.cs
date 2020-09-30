@@ -2,16 +2,12 @@
 
 namespace RemindersDomain.Models
 {
-    public class Reminder
+    public class ShoppingListItem
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
         public string Text { get; set; }
 
-        public DateTime DateTime { get; set; }
-
-        public string DateTimeString { get; set; }
-
-        public bool Complete { get; set; }
+        public bool Checked { get; set; }
     }
 }

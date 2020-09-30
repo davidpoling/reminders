@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RemindersAPI.Commands;
@@ -52,7 +51,7 @@ namespace RemindersAPI.Controllers
         }
 
         /// <summary>
-        /// Delete a reminder, provided the ID.
+        /// Delete a Reminder, provided the ID.
         /// </summary>
         /// <param name="id"></param>
         /// <returns>A status along with the deleted Reminder's ID.</returns>

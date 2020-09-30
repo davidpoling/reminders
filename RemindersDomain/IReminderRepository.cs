@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RemindersDomain.models;
+using RemindersDomain.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RemindersDomain.models;
+using RemindersDomain.Models;
 
 namespace RemindersDomain.infrastructure
 {
