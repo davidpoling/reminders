@@ -44,7 +44,10 @@ namespace RemindersDomain
 
         public async Task UpdateShoppingListItem(ShoppingListItem shoppingListItem)
         {
-            await _reminderContext.ShoppingList.SingleMergeAsync(shoppingListItem);
+            var itemToUpdate = await GetShoppingListItemById(shoppingListItem.Id.ToString());
+            itemToUpdate.Text = shoppingListItem.Text;
+            itemToUpdate.Checked = shoppingListItem.Checked;
+            await Save();
         }
 
         public async Task<ShoppingListItem> DeleteShoppingListItem(string id)

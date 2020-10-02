@@ -16,11 +16,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="RestEase" Version="1.5.0" />
-    <PackageReference Include="Steeltoe.CloudFoundry.Connector.EFCore" Version="2.4.4" />
-    <PackageReference Include="Steeltoe.CloudFoundry.ConnectorBase" Version="2.4.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.5.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.5.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="5.5.1" />
+    <PackageReference Include="Steeltoe.CloudFoundry.Connector.EFCore" Version="2.5.0" />
+    <PackageReference Include="Steeltoe.CloudFoundry.ConnectorBase" Version="2.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUi" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>

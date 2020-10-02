@@ -42,7 +42,12 @@ namespace RemindersDomain
 
         public async Task UpdateReminder(Reminder reminder)
         {
-            await _reminderContext.SingleMergeAsync(reminder);
+            var itemToUpdate = await GetReminderById(reminder.Id.ToString());
+            itemToUpdate.Text = reminder.Text;
+            itemToUpdate.DateTime = reminder.DateTime;
+            itemToUpdate.DateTimeString = reminder.DateTimeString;
+            itemToUpdate.Complete = reminder.Complete;
+            await Save();       
         }
 
         public async Task<Reminder> DeleteReminder(string id)
