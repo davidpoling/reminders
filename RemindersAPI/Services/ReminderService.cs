@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.SignalR;
 using RemindersAPI.Commands;
 using RemindersAPI.DTOs;
+using RemindersAPI.SignalR;
 using RemindersDomain;
 using RemindersDomain.Models;
 using System.Collections.Generic;
@@ -11,7 +13,7 @@ namespace RemindersAPI.Services
     public interface IReminderService
     {
         Task<IList<ReminderDTO>> GetReminders();
-        Task<ReminderDTO> CreateReminder(CreateReminderCommand reminder);
+        Task<ReminderDTO> CreateReminder(CreateReminderCommand reminder, string? connectionId);
         Task<ReminderDTO> UpdateReminder(ReminderDTO reminder);
         Task<ReminderDTO> DeleteReminder(string id);
     }
@@ -20,11 +22,13 @@ namespace RemindersAPI.Services
     {
         private readonly IReminderRepository _reminderRepository;
         private readonly IMapper _mapper;
+        private readonly IHubContext<ApplicationHub> _appHubContext;
 
-        public ReminderService(IReminderRepository reminderRepository, IMapper mapper)
+        public ReminderService(IReminderRepository reminderRepository, IMapper mapper, IHubContext<ApplicationHub> appHubContext)
         {
             _reminderRepository = reminderRepository;
             _mapper = mapper;
+            _appHubContext = appHubContext;
         }
 
         public async Task<IList<ReminderDTO>> GetReminders()
@@ -39,11 +43,13 @@ namespace RemindersAPI.Services
             return reminderDTOs;
         }
 
-        public async Task<ReminderDTO> CreateReminder(CreateReminderCommand reminder)
+        public async Task<ReminderDTO> CreateReminder(CreateReminderCommand reminder, string? connectionId)
         {
             var reminderToCreate = _mapper.Map<CreateReminderCommand, Reminder>(reminder);
             var createdReminder = await _reminderRepository.CreateReminder(reminderToCreate);
             await _reminderRepository.Save();
+
+            await _appHubContext.Clients.AllExcept(connectionId).SendAsync("ReminderCreated", "Created and Received");
 
             return _mapper.Map<Reminder, ReminderDTO>(createdReminder);
         }

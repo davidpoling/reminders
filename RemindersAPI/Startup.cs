@@ -12,6 +12,7 @@ using RemindersAPI.Services;
 using RemindersDomain;
 using Z.EntityFramework.Extensions;
 using AutoMapper;
+using RemindersAPI.SignalR;
 
 namespace RemindersAPI
 {
@@ -44,6 +45,8 @@ namespace RemindersAPI
             services.AddScoped<IReminderService, ReminderService>();
             services.AddScoped<IShoppingListRepository, ShoppingListRepository>();
             services.AddScoped<IShoppingListService, ShoppingListService>();
+
+            services.AddSignalR();
            
             services.AddSwaggerGen(c =>
             {
@@ -95,7 +98,7 @@ namespace RemindersAPI
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); endpoints.MapHub<ApplicationHub>("/application-hub"); });
         }
     }
 }

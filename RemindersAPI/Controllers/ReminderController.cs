@@ -34,9 +34,9 @@ namespace RemindersAPI.Controllers
         /// <param name="reminder"></param>
         /// <returns>A status along with the newly added Reminder.</returns>
         [HttpPost]
-        public async Task<ActionResult<ReminderDTO>> CreateReminder([FromBody] CreateReminderCommand reminder)
+        public async Task<ActionResult<ReminderDTO>> CreateReminder([FromBody] CreateReminderCommand reminder, [FromQuery] string? connectionId)
         {
-            return Ok(await _remindersService.CreateReminder(reminder));
+            return Ok(await _remindersService.CreateReminder(reminder, connectionId));
         }
 
         /// <summary>
