@@ -1,5 +1,7 @@
-﻿using AutoMapper;
+﻿#nullable enable
+using AutoMapper;
 using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
 using RemindersAPI.Commands;
 using RemindersAPI.DTOs;
 using RemindersAPI.SignalR;
@@ -14,8 +16,8 @@ namespace RemindersAPI.Services
     {
         Task<IList<ReminderDTO>> GetReminders();
         Task<ReminderDTO> CreateReminder(CreateReminderCommand reminder, string? connectionId);
-        Task<ReminderDTO> UpdateReminder(ReminderDTO reminder);
-        Task<ReminderDTO> DeleteReminder(string id);
+        Task<ReminderDTO> UpdateReminder(ReminderDTO reminder, string? connectionId);
+        Task<ReminderDTO> DeleteReminder(string id, string? connectionId);
     }
 
     public class ReminderService : IReminderService
@@ -49,19 +51,22 @@ namespace RemindersAPI.Services
             var createdReminder = await _reminderRepository.CreateReminder(reminderToCreate);
             await _reminderRepository.Save();
 
-            await _appHubContext.Clients.AllExcept(connectionId).SendAsync("ReminderCreated", "Created and Received");
+            var ret = _mapper.Map<Reminder, ReminderDTO>(createdReminder);
+            await _appHubContext.Clients.AllExcept(connectionId).SendAsync(MessageConstants.REMINDER_CREATED, JsonConvert.SerializeObject(ret));
 
-            return _mapper.Map<Reminder, ReminderDTO>(createdReminder);
+            return ret;
         }
 
-        public async Task<ReminderDTO> UpdateReminder(ReminderDTO reminder)
+        public async Task<ReminderDTO> UpdateReminder(ReminderDTO reminder, string? connectionId)
         {
             var reminderToUpdate = _mapper.Map<ReminderDTO, Reminder>(reminder);
             await _reminderRepository.UpdateReminder(reminderToUpdate);
+            await _appHubContext.Clients.AllExcept(connectionId).SendAsync(MessageConstants.REMINDER_UPDATED, JsonConvert.SerializeObject(reminder));
+            
             return reminder;
         }
 
-        public async Task<ReminderDTO> DeleteReminder(string id)
+        public async Task<ReminderDTO> DeleteReminder(string id, string? connectionId)
         {
             var deletedReminder = await _reminderRepository.DeleteReminder(id);
             await _reminderRepository.Save();

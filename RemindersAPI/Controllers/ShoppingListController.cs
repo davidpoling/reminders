@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿#nullable enable
+using Microsoft.AspNetCore.Mvc;
 using RemindersAPI.Commands;
 using RemindersAPI.DTOs;
 using RemindersAPI.Services;
@@ -34,9 +35,9 @@ namespace RemindersAPI.Controllers
         /// <param name="shoppingListItem"></param>
         /// <returns>A status along with the newly added ShoppingListItem.</returns>
         [HttpPost]
-        public async Task<ActionResult<ShoppingListItemDTO>> CreateShoppingListItem([FromBody] CreateShoppingListItemCommand shoppingListItem)
+        public async Task<ActionResult<ShoppingListItemDTO>> CreateShoppingListItem([FromBody] CreateShoppingListItemCommand shoppingListItem, [FromQuery] string? connectionId)
         {
-            return Ok(await _shoppingListService.CreateShoppingListItem(shoppingListItem));
+            return Ok(await _shoppingListService.CreateShoppingListItem(shoppingListItem, connectionId));
         }
 
         /// <summary>
@@ -45,9 +46,9 @@ namespace RemindersAPI.Controllers
         /// <param name="shoppingListItem"></param>
         /// <returns>A status along with the updated ShoppingListItem.</returns>
         [HttpPut]
-        public async Task<ActionResult<ShoppingListItemDTO>> UpdateShoppingListItem([FromBody] ShoppingListItemDTO shoppingListItem)
+        public async Task<ActionResult<ShoppingListItemDTO>> UpdateShoppingListItem([FromBody] ShoppingListItemDTO shoppingListItem, [FromQuery] string? connectionId)
         {
-            return Ok(await _shoppingListService.UpdateShoppingListItem(shoppingListItem));
+            return Ok(await _shoppingListService.UpdateShoppingListItem(shoppingListItem, connectionId));
         }
 
         /// <summary>
@@ -56,9 +57,9 @@ namespace RemindersAPI.Controllers
         /// <param name="id"></param>
         /// <returns>A status along with the deleted ShoppingListItem's ID.</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<string>> DeleteShoppingListItem(string id)
+        public async Task<ActionResult<string>> DeleteShoppingListItem(string id, [FromQuery] string? connectionId)
         {
-            return Ok(await _shoppingListService.DeleteShoppingListItem(id));
+            return Ok(await _shoppingListService.DeleteShoppingListItem(id, connectionId));
         }
     }
 }

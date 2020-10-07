@@ -2,10 +2,10 @@
 {
     public class ShoppingListItemDTO
     {
-        public string Id { get; set; }
+        public string id { get; set; }
 
-        public string Text { get; set; }
+        public string text { get; set; }
 
-        public bool Checked { get; set; }
+        public bool complete { get; set; }
     }
 }

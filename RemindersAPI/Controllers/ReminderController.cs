@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RemindersAPI.Commands;
@@ -45,9 +46,9 @@ namespace RemindersAPI.Controllers
         /// <param name="reminder"></param>
         /// <returns>A status along with the updated Reminder.</returns>
         [HttpPut]
-        public async Task<ActionResult<ReminderDTO>> UpdateReminder([FromBody] ReminderDTO reminder)
+        public async Task<ActionResult<ReminderDTO>> UpdateReminder([FromBody] ReminderDTO reminder, [FromQuery] string? connectionId)
         {
-            return Ok(await _remindersService.UpdateReminder(reminder));
+            return Ok(await _remindersService.UpdateReminder(reminder, connectionId));
         }
 
         /// <summary>
@@ -56,9 +57,9 @@ namespace RemindersAPI.Controllers
         /// <param name="id"></param>
         /// <returns>A status along with the deleted Reminder's ID.</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<string>> DeleteReminder(string id)
+        public async Task<ActionResult<string>> DeleteReminder(string id, [FromQuery] string? connectionId)
         {
-            return Ok(await _remindersService.DeleteReminder(id));
+            return Ok(await _remindersService.DeleteReminder(id, connectionId));
         }
     }
 }

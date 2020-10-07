@@ -11,7 +11,7 @@ namespace RemindersDomain.Infrastructure
             builder.ToTable("ShoppingList", null);
             builder.HasKey(s => s.Id);
             builder.Property(s => s.Text);
-            builder.Property(s => s.Checked);
+            builder.Property(s => s.Complete);
         }
     }
 }
