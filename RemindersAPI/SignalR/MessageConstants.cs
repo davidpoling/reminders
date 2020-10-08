@@ -5,7 +5,7 @@
         // Reminder
         public static readonly string REMINDER_CREATED = "ReminderCreated";
         public static readonly string REMINDER_UPDATED = "ReminderUpdated";
-        public static readonly string REMINDERS_DELETED = "ReminderDeleted";
+        public static readonly string REMINDER_DELETED = "ReminderDeleted";
 
         // Shopping List
         public static readonly string SHOPPING_LIST_ITEM_CREATED = "ShoppingListItemCreated";

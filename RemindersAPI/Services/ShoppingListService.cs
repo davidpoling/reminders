@@ -71,7 +71,10 @@ namespace RemindersAPI.Services
             var deletedShoppingListItem = await _shoppingListRepository.DeleteShoppingListItem(id);
             await _shoppingListRepository.Save();
 
-            return _mapper.Map<ShoppingListItem, ShoppingListItemDTO>(deletedShoppingListItem);
+            var ret = _mapper.Map<ShoppingListItem, ShoppingListItemDTO>(deletedShoppingListItem);
+            await _appHubContext.Clients.AllExcept(connectionId).SendAsync(MessageConstants.SHOPPING_LIST_ITEM_DELETED, JsonConvert.SerializeObject(ret));
+
+            return ret;
         }
     }
 }

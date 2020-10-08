@@ -71,7 +71,10 @@ namespace RemindersAPI.Services
             var deletedReminder = await _reminderRepository.DeleteReminder(id);
             await _reminderRepository.Save();
 
-            return _mapper.Map<Reminder, ReminderDTO>(deletedReminder);
+            var ret = _mapper.Map<Reminder, ReminderDTO>(deletedReminder);
+            await _appHubContext.Clients.AllExcept(connectionId).SendAsync(MessageConstants.REMINDER_DELETED, JsonConvert.SerializeObject(ret));
+
+            return ret;
         }
     }
 }
