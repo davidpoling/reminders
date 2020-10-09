@@ -8,6 +8,6 @@ namespace RemindersDomain.Models
 
         public string Text { get; set; }
 
-        public bool Checked { get; set; }
+        public bool Complete { get; set; }
     }
 }

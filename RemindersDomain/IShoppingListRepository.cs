@@ -46,7 +46,7 @@ namespace RemindersDomain
         {
             var itemToUpdate = await GetShoppingListItemById(shoppingListItem.Id.ToString());
             itemToUpdate.Text = shoppingListItem.Text;
-            itemToUpdate.Checked = shoppingListItem.Checked;
+            itemToUpdate.Complete = shoppingListItem.Complete;
             await Save();
         }
 

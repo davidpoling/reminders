@@ -2,3 +2,5 @@
 .vscode
 **/obj
 **/bin
+launch.json
+tasks.json

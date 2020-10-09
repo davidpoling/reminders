@@ -4,14 +4,14 @@ namespace RemindersAPI.DTOs
 {
     public class ReminderDTO
     {
-        public string Id { get; set; }
+        public string id { get; set; }
 
-        public string Text { get; set; }
+        public string text { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public DateTime dateTime { get; set; }
 
-        public string DateTimeString { get; set; }
+        public string dateTimeString { get; set; }
 
-        public bool Complete { get; set; }
+        public bool complete { get; set; }
     }
 }
