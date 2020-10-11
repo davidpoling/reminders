@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace RemindersDomain.Models
+﻿namespace RemindersDomain.Models
 {
-    public class ShoppingListItem
+    public class ShoppingListItem : IEntity
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public int Id { get; set; }
 
         public string Text { get; set; }
 

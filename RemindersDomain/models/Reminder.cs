@@ -2,9 +2,9 @@
 
 namespace RemindersDomain.Models
 {
-    public class Reminder
+    public class Reminder : IEntity
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public int Id { get; set; }
 
         public string Text { get; set; }
 

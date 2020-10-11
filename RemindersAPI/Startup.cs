@@ -13,6 +13,7 @@ using RemindersDomain;
 using Z.EntityFramework.Extensions;
 using AutoMapper;
 using RemindersAPI.SignalR;
+using RemindersDomain.Models;
 
 namespace RemindersAPI
 {
@@ -41,9 +42,13 @@ namespace RemindersAPI
             services.AddOptions();
             services.AddControllersWithViews();
             services.AddAutoMapper(typeof(Startup));
-            services.AddScoped<IReminderRepository, ReminderRepository>();
+
+            // Repositories.
+            services.AddScoped<IDbRepository<Reminder>, DbRepository<Reminder>>();
+            services.AddScoped<IDbRepository<ShoppingListItem>, DbRepository<ShoppingListItem>>();
+
+            // Services.
             services.AddScoped<IReminderService, ReminderService>();
-            services.AddScoped<IShoppingListRepository, ShoppingListRepository>();
             services.AddScoped<IShoppingListService, ShoppingListService>();
 
             services.AddSignalR();

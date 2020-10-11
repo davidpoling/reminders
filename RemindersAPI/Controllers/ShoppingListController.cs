@@ -26,7 +26,7 @@ namespace RemindersAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IList<ShoppingListItemDTO>>> GetShoppingList()
         {
-            return Ok(await _shoppingListService.GetShoppingList());
+            return Created(Url.ToString(), await _shoppingListService.GetShoppingList());
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace RemindersAPI.Controllers
         /// <param name="id"></param>
         /// <returns>A status along with the deleted ShoppingListItem's ID.</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<string>> DeleteShoppingListItem(string id, [FromQuery] string? connectionId)
+        public async Task<ActionResult<int>> DeleteShoppingListItem(int id, [FromQuery] string? connectionId)
         {
             return Ok(await _shoppingListService.DeleteShoppingListItem(id, connectionId));
         }

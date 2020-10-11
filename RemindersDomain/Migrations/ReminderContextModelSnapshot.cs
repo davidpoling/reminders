@@ -19,9 +19,9 @@ namespace RemindersDomain.Migrations
 
             modelBuilder.Entity("RemindersDomain.Models.Reminder", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
                     b.Property<bool>("Complete")
                         .HasColumnType("tinyint(1)");
@@ -42,9 +42,9 @@ namespace RemindersDomain.Migrations
 
             modelBuilder.Entity("RemindersDomain.Models.ShoppingListItem", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
                     b.Property<bool>("Complete")
                         .HasColumnType("tinyint(1)");

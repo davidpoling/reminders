@@ -4,7 +4,7 @@ namespace RemindersAPI.DTOs
 {
     public class ReminderDTO
     {
-        public string id { get; set; }
+        public int id { get; set; }
 
         public string text { get; set; }
 

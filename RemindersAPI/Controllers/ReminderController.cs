@@ -37,7 +37,7 @@ namespace RemindersAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<ReminderDTO>> CreateReminder([FromBody] CreateReminderCommand reminder, [FromQuery] string? connectionId)
         {
-            return Ok(await _remindersService.CreateReminder(reminder, connectionId));
+            return Created(Url.ToString(), await _remindersService.CreateReminder(reminder, connectionId));
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace RemindersAPI.Controllers
         /// <param name="id"></param>
         /// <returns>A status along with the deleted Reminder's ID.</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<string>> DeleteReminder(string id, [FromQuery] string? connectionId)
+        public async Task<ActionResult<string>> DeleteReminder(int id, [FromQuery] string? connectionId)
         {
             return Ok(await _remindersService.DeleteReminder(id, connectionId));
         }
