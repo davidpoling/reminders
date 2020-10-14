@@ -8,7 +8,6 @@ using RemindersAPI.DTOs;
 using RemindersAPI.SignalR;
 using RemindersDomain;
 using RemindersDomain.Models;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -47,8 +46,6 @@ namespace RemindersAPI.Services
 
             var ret = _mapper.Map<Reminder, ReminderDTO>(createdReminder);
             await _appHubContext.Clients.AllExcept(connectionId).SendAsync(MessageConstants.REMINDER_CREATED, JsonConvert.SerializeObject(ret));
-
-            Console.WriteLine("Test");
 
             return ret;
         }
