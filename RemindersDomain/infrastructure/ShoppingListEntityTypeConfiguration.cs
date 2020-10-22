@@ -12,6 +12,8 @@ namespace RemindersDomain.Infrastructure
             builder.HasKey(s => s.Id);
             builder.Property(s => s.Text);
             builder.Property(s => s.Complete);
+            builder.Property(s => s.Created);
+            builder.Property(s => s.LastUpdated);
         }
     }
 }

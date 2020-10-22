@@ -26,11 +26,17 @@ namespace RemindersDomain.Migrations
                     b.Property<bool>("Complete")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("DateTimeString")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime>("LastUpdated")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Text")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -48,6 +54,12 @@ namespace RemindersDomain.Migrations
 
                     b.Property<bool>("Complete")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("LastUpdated")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Text")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");

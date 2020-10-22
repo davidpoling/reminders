@@ -2,10 +2,8 @@
 
 namespace RemindersDomain.Models
 {
-    public class Reminder : IEntity
+    public class Reminder : Entity
     {
-        public int Id { get; set; }
-
         public string Text { get; set; }
 
         public DateTime DateTime { get; set; }

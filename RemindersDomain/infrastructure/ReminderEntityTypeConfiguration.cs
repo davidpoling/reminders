@@ -13,6 +13,8 @@ namespace RemindersDomain.infrastructure
             builder.Property(r => r.Text);
             builder.Property(r => r.DateTime);
             builder.Property(r => r.DateTimeString);
+            builder.Property(r => r.Created);
+            builder.Property(r => r.LastUpdated);
         }
     }
 }

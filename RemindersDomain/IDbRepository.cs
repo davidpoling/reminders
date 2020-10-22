@@ -49,6 +49,7 @@ namespace RemindersDomain
 
         public async Task<TEntity> Update(TEntity entity)
         {
+            entity.LastUpdated = DateTime.UtcNow;
             _context.Set<TEntity>().Update(entity);
             await _context.SaveChangesAsync();
 

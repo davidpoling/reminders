@@ -9,6 +9,7 @@ using RemindersAPI.SignalR;
 using RemindersDomain;
 using RemindersDomain.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RemindersAPI.Services
@@ -36,7 +37,7 @@ namespace RemindersAPI.Services
 
         public async Task<IList<ShoppingListItemDTO>> GetShoppingList()
         {
-            return await _mapper.ProjectTo<ShoppingListItemDTO>(_repo.Search()).ToListAsync();
+            return await _mapper.ProjectTo<ShoppingListItemDTO>(_repo.Search().OrderByDescending(_ => _.Created)).ToListAsync();
         }
 
         public async Task<ShoppingListItemDTO> CreateShoppingListItem(CreateShoppingListItemCommand shoppingListItem, string? connectionId)

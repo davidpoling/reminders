@@ -9,6 +9,7 @@ using RemindersAPI.SignalR;
 using RemindersDomain;
 using RemindersDomain.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RemindersAPI.Services
@@ -16,8 +17,11 @@ namespace RemindersAPI.Services
     public interface IReminderService
     {
         Task<IList<ReminderDTO>> GetReminders();
+
         Task<ReminderDTO> CreateReminder(CreateReminderCommand reminder, string? connectionId);
+
         Task<ReminderDTO> UpdateReminder(ReminderDTO reminder, string? connectionId);
+
         Task<int> DeleteReminder(int id, string? connectionId);
     }
 
@@ -36,7 +40,7 @@ namespace RemindersAPI.Services
 
         public async Task<IList<ReminderDTO>> GetReminders()
         {
-            return await _mapper.ProjectTo<ReminderDTO>(_repo.Search()).ToListAsync();
+            return await _mapper.ProjectTo<ReminderDTO>(_repo.Search().OrderBy(_ => _.DateTime).ThenByDescending(_ => _.Created)).ToListAsync();
         }
 
         public async Task<ReminderDTO> CreateReminder(CreateReminderCommand reminder, string? connectionId)
