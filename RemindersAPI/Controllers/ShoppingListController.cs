@@ -26,7 +26,7 @@ namespace RemindersAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IList<ShoppingListItemDTO>>> GetShoppingList()
         {
-            return Created(Url.ToString(), await _shoppingListService.GetShoppingList());
+            return Ok(await _shoppingListService.GetShoppingList());
         }
 
         /// <summary>
@@ -35,9 +35,9 @@ namespace RemindersAPI.Controllers
         /// <param name="shoppingListItem"></param>
         /// <returns>A status along with the newly added ShoppingListItem.</returns>
         [HttpPost]
-        public async Task<ActionResult<ShoppingListItemDTO>> CreateShoppingListItem([FromBody] CreateShoppingListItemCommand shoppingListItem, [FromQuery] string? connectionId)
+        public async Task<ActionResult<ShoppingListItemDTO>> CreateShoppingListItem([FromBody] CreateShoppingListItemCommand shoppingListItem)
         {
-            return Ok(await _shoppingListService.CreateShoppingListItem(shoppingListItem, connectionId));
+            return Created(Url.ToString(), await _shoppingListService.CreateShoppingListItem(shoppingListItem));
         }
 
         /// <summary>
@@ -46,9 +46,9 @@ namespace RemindersAPI.Controllers
         /// <param name="shoppingListItem"></param>
         /// <returns>A status along with the updated ShoppingListItem.</returns>
         [HttpPut]
-        public async Task<ActionResult<ShoppingListItemDTO>> UpdateShoppingListItem([FromBody] ShoppingListItemDTO shoppingListItem, [FromQuery] string? connectionId)
+        public async Task<ActionResult<ShoppingListItemDTO>> UpdateShoppingListItem([FromBody] ShoppingListItemDTO shoppingListItem)
         {
-            return Ok(await _shoppingListService.UpdateShoppingListItem(shoppingListItem, connectionId));
+            return Ok(await _shoppingListService.UpdateShoppingListItem(shoppingListItem));
         }
 
         /// <summary>
@@ -57,9 +57,9 @@ namespace RemindersAPI.Controllers
         /// <param name="id"></param>
         /// <returns>A status along with the deleted ShoppingListItem's ID.</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<int>> DeleteShoppingListItem(int id, [FromQuery] string? connectionId)
+        public async Task<ActionResult<int>> DeleteShoppingListItem(int id)
         {
-            return Ok(await _shoppingListService.DeleteShoppingListItem(id, connectionId));
+            return Ok(await _shoppingListService.DeleteShoppingListItem(id));
         }
     }
 }
