@@ -7,6 +7,7 @@ namespace RemindersDomain.Models
         int Id { get; set; }
         DateTime Created { get; set; }
         DateTime LastUpdated { get; set; }
+        bool Complete { get; set; }
     }
 
     public class Entity : IEntity
@@ -14,5 +15,6 @@ namespace RemindersDomain.Models
         public int Id { get; set; }
         public DateTime Created { get; set; } = DateTime.UtcNow;
         public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
+        public bool Complete { get; set; }
     }
 }

@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace RemindersDomain
 {
-    public interface IDbRepository<TEntity> where TEntity: class
+    public interface IDbRepository<TEntity> where TEntity : class
     {
         Task<TEntity> Get(int id);
         Task<TEntity> Create(TEntity entity);
         Task Create(List<TEntity> entities);
         Task<TEntity> Update(TEntity entity);
         Task<int> Delete(int id);
+        Task<int> DeleteCompleted();
         IQueryable<TEntity> Search();
     }
 
@@ -60,6 +61,11 @@ namespace RemindersDomain
         {
             await _context.Set<TEntity>().Where(_ => _.Id == id).DeleteFromQueryAsync();
             return id;
+        }
+
+        public async Task<int> DeleteCompleted()
+        {
+            return await _context.Set<TEntity>().Where(_ => _.Complete).DeleteFromQueryAsync();
         }
 
         public IQueryable<TEntity> Search()

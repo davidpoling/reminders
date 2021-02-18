@@ -17,6 +17,7 @@ namespace RemindersAPI.Services
         Task<ShoppingListItemDTO> CreateShoppingListItem(CreateShoppingListItemCommand shoppingListItem);
         Task<ShoppingListItemDTO> UpdateShoppingListItem(ShoppingListItemDTO shoppingListItem);
         Task<int> DeleteShoppingListItem(int id);
+        Task<int> DeleteCompletedShoppingListItems();
     }
 
     public class ShoppingListService : IShoppingListService
@@ -58,6 +59,11 @@ namespace RemindersAPI.Services
             id = await _repo.Delete(id);
 
             return id;
+        }
+
+        public async Task<int> DeleteCompletedShoppingListItems()
+        {
+            return await _repo.DeleteCompleted();
         }
     }
 }

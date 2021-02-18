@@ -14,12 +14,10 @@ namespace RemindersAPI.Services
     public interface IReminderService
     {
         Task<IList<ReminderDTO>> GetReminders();
-
         Task<ReminderDTO> CreateReminder(CreateReminderCommand reminder);
-
         Task<ReminderDTO> UpdateReminder(ReminderDTO reminder);
-
         Task<int> DeleteReminder(int id);
+        Task<int> DeleteCompletedReminders();
     }
 
     public class ReminderService : IReminderService
@@ -61,6 +59,11 @@ namespace RemindersAPI.Services
             id = await _repo.Delete(id);
 
             return id;
+        }
+
+        public async Task<int> DeleteCompletedReminders()
+        {
+            return await _repo.DeleteCompleted();
         }
     }
 }

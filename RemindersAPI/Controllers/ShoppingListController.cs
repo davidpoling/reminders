@@ -61,5 +61,15 @@ namespace RemindersAPI.Controllers
         {
             return Ok(await _shoppingListService.DeleteShoppingListItem(id));
         }
+
+        /// <summary>
+        /// Delete completed ShoppingListItems.
+        /// </summary>
+        /// <returns>A status.</returns>
+        [HttpDelete("Delete/Completed")]
+        public async Task<ActionResult<int>> DeleteCompletedShoppingListItems()
+        {
+            return Ok(await _shoppingListService.DeleteCompletedShoppingListItems());
+        }
     }
 }
