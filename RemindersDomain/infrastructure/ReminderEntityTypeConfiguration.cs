@@ -8,7 +8,7 @@ namespace RemindersDomain.infrastructure
     {
         public void Configure(EntityTypeBuilder<Reminder> builder)
         {
-            builder.ToTable("Reminder", null);
+            builder.ToTable("Reminder");
             builder.HasKey(r => r.Id);
             builder.Property(r => r.Text);
             builder.Property(r => r.DateTime);

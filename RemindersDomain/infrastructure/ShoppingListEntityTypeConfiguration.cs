@@ -8,7 +8,7 @@ namespace RemindersDomain.Infrastructure
     {
         public void Configure(EntityTypeBuilder<ShoppingListItem> builder)
         {
-            builder.ToTable("ShoppingList", null);
+            builder.ToTable("ShoppingList");
             builder.HasKey(s => s.Id);
             builder.Property(s => s.Text);
             builder.Property(s => s.Complete);
